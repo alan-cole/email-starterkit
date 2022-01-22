@@ -35,6 +35,21 @@ module.exports = function(grunt) {
       }
     },
 
+    // COPY ASSETS
+    copy: {
+      main: {
+        files: [
+          {
+            expand: true,
+            src: ['src/assets/**'],
+            dest: 'dist/',
+            filter: 'isFile',
+            flatten: true
+          }
+        ],
+      },
+    },
+
     // INLINE CSS
     inlinecss: {
       main: {
@@ -75,12 +90,12 @@ module.exports = function(grunt) {
 
   grunt.loadNpmTasks('grunt-twig-render');
   grunt.loadNpmTasks('grunt-sass');
+  grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-inline-css');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-connect');
 
   // Default tasks.
-  grunt.registerTask('default', ['twigRender', 'sass:dist', 'inlinecss']);
-  grunt.registerTask('dev', ['connect', 'twigRender', 'sass:dist', 'inlinecss', 'watch']);
-
+  grunt.registerTask('default', ['twigRender', 'sass:dist', 'copy', 'inlinecss']);
+  grunt.registerTask('dev', ['connect', 'twigRender', 'sass:dist', 'copy', 'inlinecss', 'watch']);
 }
